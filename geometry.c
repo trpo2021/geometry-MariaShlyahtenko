@@ -1,8 +1,8 @@
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 int main()
 {
     double x;
@@ -11,137 +11,136 @@ int main()
     char str[100];
     int flag = 0;
     char circle[6] = "circle";
-    char* ykaz = str;
-    char* kon_ykaz = str;
-    char* new_ykaz;
+    char* point = str;
+    char* end_point = str;
+    char* new_point;
     char* end;
 
     fgets(str, sizeof(str), stdin);
 
-    while (isalpha(*kon_ykaz) != 0)
-        kon_ykaz++;
+    while (isalpha(*end_point) != 0)
+        end_point++;
 
-    if ((kon_ykaz - ykaz) <= 6){
-           if  (strncasecmp(str,  circle , 6) == 0)
-          flag=1;
-}
-else if  (strncasecmp(str,  circle , kon_ykaz - ykaz) == 0)
-flag =1;
-if (flag == 1)
-{
-flag =0;
-        ykaz = kon_ykaz;
-        new_ykaz = ykaz;
+    if ((end_point - point) <= 6) {
+        if (strncasecmp(str, circle, 6) == 0)
+            flag = 1;
+    } else if (strncasecmp(str, circle, end_point - point) == 0)
+        flag = 1;
+    if (flag == 1) {
+        flag = 0;
+        point = end_point;
+        new_point = point;
 
-        while (*new_ykaz != 10) {
-            if (*new_ykaz == '(') {
-                ykaz = new_ykaz;
+        while (*new_point != 10) {
+            if (*new_point == '(') {
+                point = new_point;
                 flag = 1;
                 break;
             }
-            new_ykaz++;
+            new_point++;
         }
 
         if (flag == 0) {
-            printf("ERROR: expected 'circle' \n");
+            printf("ERROR: expected 'circle' (\n");
             return 0;
         }
 
-        while (isdigit(*ykaz) == 0) //1-ое число
+        while (isdigit(*point) == 0) // 1-ое число
         {
-            if ((*ykaz == ' ') || (*ykaz == '('))
-                ykaz++;
+            if ((*point == ' ') || (*point == '('))
+                point++;
             else {
-                printf("ERROR 'X'\n");
+                printf("ERROR X\n");
                 return 0;
             }
         }
 
-        if (isdigit(*ykaz) != 0) {
-            x = strtod(ykaz, &end);
-            ykaz = end;
-printf ("x=%f\n", x);
+        if (isdigit(*point) != 0) {
+            x = strtod(point, &end);
+            point = end;
+         printf ("x=%f\n", x);
+
         }
 
-        while (isdigit(*ykaz) == 0) //2-ое число
+        while (isdigit(*point) == 0) // 2-е число
         {
-            if (*ykaz == ' ')
-                ykaz++;
+            if (*point == ' ')
+                point++;
             else {
-                printf("ERROR 'Y'\n");
+                printf("ERROR Y\n");
                 return 0;
             }
         }
 
-        if (isdigit(*ykaz) != 0) {
-            y = strtod(ykaz, &end);
-            ykaz = end;
-printf ("y= %f\n", y);
+        if (isdigit(*point) != 0) {
+           y = strtod(point, &end);
+            point = end;
+            printf ("y= %f\n", y);
         }
 
-        new_ykaz = ykaz;
+        new_point = point;
         flag = 0;
 
-        while (*new_ykaz != 10) {
-            if ((*new_ykaz != ' ') && (*new_ykaz != ',')) {
-                printf("ERROR ','\n");
+        while (*new_point != 10) {
+            if ((*new_point != ' ') && (*new_point != ',')) {
+                printf("ERROR ,\n");
                 return 0;
-            } else if (*new_ykaz == ',') {
-                ykaz = new_ykaz;
+            } else if (*new_point== ',') {
+                point = new_point;
                 flag = 1;
                 break;
             } else
-                new_ykaz++;
+                new_point++;
         }
 
         if (flag == 0)
-            printf("ERROR ','");
+            printf("ERROR ,");
 
-        while (isdigit(*ykaz) == 0) //3-е число
+        while (isdigit(*point) == 0) // 3-е число
         {
-            if ((*ykaz == ' ') || (*ykaz == ','))
-                ykaz++;
+            if ((*point == ' ') || (*point == ','))
+                point++;
             else {
-                printf("ERROR 'Radius'\n");
+                printf("ERROR Radius\n");
                 return 0;
             }
         }
 
-        if (isdigit(*ykaz) != 0) {
-            r = strtod(ykaz, &end);
-            ykaz = end;
-printf ("r=%f\n", r);
+        if (isdigit(*point) != 0) {
+            r = strtod(point, &end);
+            point = end;
+            printf ("r=%f\n", r);
 
         }
 
         flag = 0;
-        new_ykaz = ykaz;
+        new_point = point;
 
-        while (*new_ykaz != 10) {
-            if ((*new_ykaz != ' ') && (*new_ykaz != ')')) {
-                printf("ERROR ')'\n");
+        while (*new_point!= 10) {
+            if ((*new_point != ' ') && (*new_point != ')')) {
+                printf("ERROR )\n");
                 return 0;
-            } else if (*new_ykaz == ')') {
-                ykaz = new_ykaz;
+            } else if (*new_point== ')') {
+                point = new_point;
                 flag = 1;
                 break;
             } else
-                new_ykaz++;
+                new_point++;
         }
 
         if (flag == 0) {
-            printf("ERROR ')'\n");
+            printf("ERROR )\n");
             return 0;
         }
 
-        ykaz++;
+        point++;
 
-        while (*ykaz != 10) {
-            if (*ykaz!= ' ') {
-                printf("ERROR: no unexpected \n");
+        while (*point != 10) {
+            if (*point != ' ') {
+                printf("ERROR: no items expected\n");
                 return 0;
             } else
-                ykaz++;
+                point++;
         }
         printf("data entered correctly\n");
         return 0;
