@@ -1,13 +1,15 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 int main()
 {
     double x;
     double y;
     double r;
     char str[100];
-    int flag = 0,i=0;
+    int flag = 0;
     char circle[6] = "circle";
     char* ykaz = str;
     char* kon_ykaz = str;
@@ -19,7 +21,15 @@ int main()
     while (isalpha(*kon_ykaz) != 0)
         kon_ykaz++;
 
-    if ((kon_ykaz==6) && (strncasecmp(str,  circle , 6) == 0)) {
+    if ((kon_ykaz - ykaz) <= 6){
+           if  (strncasecmp(str,  circle , 6) == 0)
+          flag=1;
+}
+else if  (strncasecmp(str,  circle , kon_ykaz - ykaz) == 0)
+flag =1;
+if (flag == 1)
+{
+flag =0;
         ykaz = kon_ykaz;
         new_ykaz = ykaz;
 
@@ -50,6 +60,7 @@ int main()
         if (isdigit(*ykaz) != 0) {
             x = strtod(ykaz, &end);
             ykaz = end;
+printf ("x=%f\n", x);
         }
 
         while (isdigit(*ykaz) == 0) //2-ое число
@@ -65,6 +76,7 @@ int main()
         if (isdigit(*ykaz) != 0) {
             y = strtod(ykaz, &end);
             ykaz = end;
+printf ("y= %f\n", y);
         }
 
         new_ykaz = ykaz;
@@ -98,6 +110,8 @@ int main()
         if (isdigit(*ykaz) != 0) {
             r = strtod(ykaz, &end);
             ykaz = end;
+printf ("r=%f\n", r);
+
         }
 
         flag = 0;
