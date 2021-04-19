@@ -8,11 +8,11 @@
 #define COUNT_CICLE 8
 
 typedef struct {
-double x;
-double y;
-double radius;
-double perimeter;
-double area;
+    double x;
+    double y;
+    double radius;
+    double perimeter;
+    double area;
 } figure_circle;
 
 // char* figure_calling(char*, char*, char*);
