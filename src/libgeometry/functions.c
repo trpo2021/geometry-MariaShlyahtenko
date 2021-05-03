@@ -175,5 +175,6 @@ int Intersection(figure_circle circle_i, figure_circle circle_j, int num_circle)
             }
         }
     }
+
     return 0;
 }
