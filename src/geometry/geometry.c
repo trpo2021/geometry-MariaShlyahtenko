@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define COUNT_CIRCLE 8
+#define COUNT_CIRCLE 4
 
 int main()
 {
@@ -15,23 +15,16 @@ int main()
     int num_circle = 0;
     figure_circle circle[COUNT_CIRCLE];
     int Num_Error;
+    int i, j;
 
     while (fgets(stroka, sizeof(stroka), stdin)) {
         pointer = stroka;
         end_pointer = stroka;
         Num_Error
                 = test_circle(pointer, end_pointer, stroka, circle, num_circle);
-        if (Num_Error == 0) {
-            printf("Perimeter = %f\n",
-                   circle[num_circle].perimeter
-                   = perimeter_circle(circle[num_circle]));
-            printf("Area = %f\n",
-                   circle[num_circle].area = area_circle(circle[num_circle]));
+        if (Num_Error == 0)
             num_circle++;
-            printf("Data entered correctly\n");
-            printf("\n");
-
-        } else {
+        else {
             switch (Num_Error) {
             case 1:
                 printf("Expected 'circle'\n\n");
@@ -59,6 +52,40 @@ int main()
                 break;
             }
         }
+    }
+    printf("\n");
+
+    int presence_intersections[num_circle][num_circle];
+
+    for (i = 0; i < num_circle; i++) {
+        for (j = 0; j < num_circle; j++) {
+            presence_intersections[i][j] = 0;
+        }
+    }
+
+    for (i = 0; i < num_circle; i++) {
+        for (j = 0; j < num_circle; j++) {
+            if (i != j)
+                presence_intersections[i][j]
+                        = Intersection(circle[i], circle[j], num_circle);
+        }
+    }
+
+    for (i = 0; i < num_circle; i++) {
+        printf("%d. circle (%.2f %.2f, %.2f)\n",
+               i + 1,
+               circle[i].x,
+               circle[i].y,
+               circle[i].radius);
+        printf("Perimeter = %.2f\n",
+               circle[i].perimeter = perimeter_circle(circle[i]));
+        printf("Area = %.2f\n", circle[i].area = area_circle(circle[i]));
+        printf("Intersections: \n");
+        for (j = 0; j < num_circle; j++) {
+            if (presence_intersections[i][j] == 1)
+                printf("\t %d. circle\n", j + 1);
+        }
+        printf("\n");
     }
     printf("\n");
     return 0;
